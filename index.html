@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>برامج تأهيل الباحثين عن عمل</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.3/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'IBM Plex Sans Arabic', sans-serif;
+        }
+        .bg-primary {
+            background-color: #1E3A8A; /* Navy Blue */
+        }
+        .bg-secondary {
+            background-color: #2A9D8F; /* Teal */
+        }
+        .bg-accent {
+            background-color: #E76F51; /* Coral */
+        }
+        .text-primary {
+            color: #1E3A8A; /* Navy Blue */
+        }
+        .text-secondary {
+            color: #2A9D8F; /* Teal */
+        }
+        .text-accent {
+            color: #E76F51; /* Coral */
+        }
+        .bg-light {
+            background-color: #F4A261; /* Sand */
+        }
+        .bg-dark {
+            background-color: #264653; /* Dark Teal */
+        }
+    </style>
+</head>
+<body class="bg-gray-50 relative">
+    <!-- Introductory Section -->
+    <div id="introSection" class="fixed inset-0 flex justify-center items-center bg-primary z-50">
+        <div class="text-center">
+            <img src="https://imgg.io/images/2024/06/30/a09ba923681865c2a82893602c92e1c2.png" alt="Logo" class="w-64 h-64 mb-4 mx-auto">
+            <h1 class="text-4xl font-extrabold text-white">منصة برامج تأهيل الباحثين عن عمل</h1>
+        </div>
+    </div>
+
+    <div id="mainContent" class="container mx-auto p-4 hidden">
+        <div class="flex items-right justify-right mb-4">
+            <h1 class="text-3xl font-extrabold text-primary">برامج شهر يوليو 2024</h1>
+            <img src="https://imgg.io/images/2024/06/30/4e58f4ef335bc30f2451d76f6c79fb17.png" alt="Logo" class="h-8 w-8">
+        </div>
+
+        <p class="text-primary text-right leading-relaxed mb-6">نرحب بكم في منصتنا لتأهيل الباحثين عن عمل. يمكنكم التسجيل في برامج التأهيل المختلفة بناءً على مؤهلاتكم العلمية. يمكنكم اختيار البرامج من خلال الأقسام أدناه.</p>
+
+        <!-- High School Category -->
+        <div class="p-4 bg-light rounded shadow mb-6">
+            <h2 class="text-xl font-semibold mb-2 text-primary text-right">برامج مؤهل الشهادة الثانوية</h2>
+            <button onclick="showPrograms('highSchool')" class="bg-primary text-white px-4 py-2 rounded transition duration-300 hover:bg-accent">عرض البرامج</button>
+        </div>
+
+        <!-- University Category -->
+        <div class="p-4 bg-light rounded shadow mb-6">
+            <h2 class="text-xl font-semibold mb-2 text-primary text-right">برامج المؤهلات الجامعية</h2>
+            <div class="flex flex-col mb-4">
+                <select id="universityQualification" class="border border-gray-400 rounded px-4 py-2 text-primary">
+                    <option value="">قم بتحديد المؤهل العلمي</option>
+                    <option value="bachelor">البكالوريوس</option>
+                    <option value="master">الماجستير</option>
+                    <option value="diploma">الدبلوم</option>
+                    <option value="advancedDiploma">الدبلوم العالي</option>
+                </select>
+            </div>
+            <button onclick="showPrograms('university')" class="bg-primary text-white px-4 py-2 rounded transition duration-300 hover:bg-accent">عرض البرامج</button>
+        </div>
+
+        <!-- Other Qualifications Category -->
+        <div class="p-4 bg-light rounded shadow mb-6">
+            <h2 class="text-xl font-semibold mb-2 text-primary text-right">برامج لمختلف المؤهلات العلمية</h2>
+            <div class="flex flex-col mb-4">
+                <select id="otherQualification" class="border border-gray-400 rounded px-4 py-2 text-primary">
+                    <option value="">قم بتحديد المؤهل العلمي</option>
+                    <option value="belowHighSchool">أقل من الشهادة الثانوية</option>
+                    <option value="achievementCertificate">شهادة الإنجاز</option>
+                </select>
+            </div>
+            <button onclick="showPrograms('others')" class="bg-primary text-white px-4 py-2 rounded transition duration-300 hover:bg-accent">عرض البرامج</button>
+        </div>
+
+        <!-- Programs Section -->
+        <div id="programsSection" class="mt-8 hidden">
+            <h2 class="text-xl font-semibold mb-4 text-primary text-right">البرامج حسب الأسابيع</h2>
+            <div id="programs" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                <!-- Programs will be dynamically added here -->
+            </div>
+        </div>
+
+        <!-- Registration Form -->
+        <div id="registrationForm" class="fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center hidden">
+            <div class="bg-white p-6 rounded shadow-lg w-full max-w-lg">
+                <h2 class="text-xl font-semibold mb-4 text-primary text-right">نموذج التسجيل</h2>
+                <form id="registerForm">
+                    <div class="mb-4">
+                        <label for="userName" class="block text-right text-primary mb-1">الاسم</label>
+                        <input type="text" id="userName" name="userName" class="border border-gray-400 rounded w-full px-4 py-2" required>
+                    </div>
+                    <div class="mb-4">
+                        <label for="userPhone" class="block text-right text-primary mb-1">رقم الهاتف</label>
+                        <div class="flex">
+                            <input type="text" id="userPhone" name="userPhone" class="border border-gray-400 rounded w-full px-4 py-2" required placeholder="971512345678">
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <label for="userEmail" class="block text-right text-primary mb-1">الإيميل</label>
+                        <input type="email" id="userEmail" name="userEmail" class="border border-gray-400 rounded w-full px-4 py-2" required>
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-right text-primary mb-1">المؤهل</label>
+                        <p id="qualificationInfo" class="text-secondary"></p>
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-right text-primary mb-1">البرنامج</label>
+                        <p id="programInfo" class="text-secondary"></p>
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-right text-primary mb-1">تأكيد التسجيل</label>
+                        <div class="flex items-center">
+                            <input type="checkbox" id="confirmRegistration" name="confirmRegistration" class="mr-2" required>
+                            <label for="confirmRegistration" class="text-primary">أؤكد أنني أريد التسجيل في هذا البرنامج</label>
+                        </div>
+                    </div>
+                    <div class="flex justify-end">
+                        <button type="button" onclick="submitRegistration()" class="bg-primary text-white px-4 py-2 rounded transition duration-300 hover:bg-accent">إرسال</button>
+                        <button type="button" onclick="closeRegistrationForm()" class="bg-gray-400 text-white px-4 py-2 ml-2 rounded transition duration-300 hover:bg-gray-600">إلغاء</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const programs = {
+    highSchool: [
+        { week: 1, name: 'البرنامج الدولي في الأمن الرقمي (السيبراني) Cyber Security Certification', duration: '6 أيام', date: 'من 01\\07\\2024 الى 09\\07\\2024' },
+        { week: 1, name: 'مهارات الممارسة المهنية للأخصائي الاجتماعي', duration: '4 أيام', date: 'من 01\\07\\2024 الى 04\\07\\2024' },
+        { week: 1, name: 'التميز والابتكار في خدمة وإسعاد المتعاملين', duration: '4 أيام', date: 'من 01\\07\\2024 الى 04\\07\\2024' },
+        { week: 1, name: 'استراتيجيات التخطيط والتنظيم', duration: '3 أيام', date: 'من 02\\07\\2024 الى 04\\07\\2024' },
+        { week: 1, name: 'برنامج التوجيه الوظيفي لنظام المقابلات الوظيفية ( المجموعة 1 )', duration: 'يوم واحد', date: '04\\07\\2024' },
+        { week: 2, name: 'إدارة الذات والتغيير', duration: '3 أيام', date: 'من 09\\07\\2024 الى 11\\07\\2024' },
+        { week: 2, name: 'مهارات التخطيط الإبداعي', duration: '3 أيام', date: 'من 09\\07\\2024 الى 11\\07\\2024' },
+        { week: 2, name: 'التفكير الإيجابي', duration: '3 أيام', date: 'من 09\\07\\2024 الى 11\\07\\2024' },
+        { week: 2, name: 'مهارات التعامل مع الشخصيات المتنوعة والصعبة', duration: '3 أيام', date: 'من 09\\07\\2024 الى 11\\07\\2024' },
+        { week: 2, name: 'كتابة السيرة الذاتية بإحترافية', duration: 'يوم واحد', date: '11\\07\\2024' },
+        { week: 3, name: 'مهارات خبير لغة الاشارة (المستوى الأول) (حضوري)', duration: '4 أيام', date: 'من 15\\07\\2024 الى 18\\07\\2024' },
+        { week: 3, name: 'الأرشفة الذكية وإدارة الوثائق والملفات', duration: '4 أيام', date: 'من 15\\07\\2024 الى 18\\07\\2024' },
+        { week: 3, name: 'تصميم المسوح الإحصائية', duration: '4 أيام', date: 'من 15\\07\\2024 الى 18\\07\\2024' },
+        { week: 3, name: 'مهارات العمل الجماعي و التعاون', duration: '3 أيام', date: 'من 16\\07\\2024 الى 18\\07\\2024' },
+        { week: 3, name: 'برنامج التوجيه الوظيفي لنظام المقابلات الوظيفية ( المجموعة 2 )', duration: 'يوم واحد', date: '18\\07\\2024' },
+        { week: 4, name: 'بناء مشروع تجاري', duration: '4 أيام', date: 'من 22\\07\\2024 الى 25\\07\\2024' },
+        { week: 4, name: 'مؤشرات جودة الحياة', duration: '3 أيام', date: 'من 23\\07\\2024 الى 25\\07\\2024' },
+        { week: 4, name: 'التغلب على رهاب المستقبل المجهول', duration: '3 أيام', date: 'من 23\\07\\2024 الى 25\\07\\2024' },
+        { week: 4, name: 'هندسة الابداع واستراتيجيات الأعمال الإبتكارية', duration: '3 أيام', date: 'من 23\\07\\2024 الى 25\\07\\2024' },
+        { week: 4, name: 'تحديد وتحقيق الأهداف', duration: '3 أيام', date: 'من 23\\07\\2024 الى 25\\07\\2024' }
+    ],
+    university: {
+        bachelor: [
+            { week: 1, name: 'البرنامج الدولي في الأمن الرقمي (السيبراني) Cyber Security Certification', duration: '6 أيام', date: 'من 01\\07\\2024 الى 09\\07\\2024' },
+            { week: 1, name: 'مهارات الممارسة المهنية للأخصائي الاجتماعي', duration: '4 أيام', date: 'من 01\\07\\2024 الى 04\\07\\2024' },
+            { week: 1, name: 'التميز والابتكار في خدمة وإسعاد المتعاملين', duration: '4 أيام', date: 'من 01\\07\\2024 الى 04\\07\\2024' },
+            { week: 1, name: 'استراتيجيات التخطيط والتنظيم', duration: '3 أيام', date: 'من 02\\07\\2024 الى 04\\07\\2024' },
+            { week: 1, name: 'برنامج التوجيه الوظيفي لنظام المقابلات الوظيفية ( المجموعة 1 )', duration: 'يوم واحد', date: '04\\07\\2024' },
+            { week: 2, name: 'إدارة الذات والتغيير', duration: '3 أيام', date: 'من 09\\07\\2024 الى 11\\07\\2024' },
+            { week: 2, name: 'مهارات التخطيط الإبداعي', duration: '3 أيام', date: 'من 09\\07\\2024 الى 11\\07\\2024' },
+            { week: 2, name: 'التفكير الإيجابي', duration: '3 أيام', date: 'من 09\\07\\2024 الى 11\\07\\2024' },
+            { week: 2, name: 'مهارات التعامل مع الشخصيات المتنوعة والصعبة', duration: '3 أيام', date: 'من 09\\07\\2024 الى 11\\07\\2024' },
+            { week: 2, name: 'كتابة السيرة الذاتية بإحترافية', duration: 'يوم واحد', date: '11\\07\\2024' },
+            { week: 3, name: 'مهارات خبير لغة الاشارة (المستوى الأول) (حضوري)', duration: '4 أيام', date: 'من 15\\07\\2024 الى 18\\07\\2024' },
+            { week: 3, name: 'الأرشفة الذكية وإدارة الوثائق والملفات', duration: '4 أيام', date: 'من 15\\07\\2024 الى 18\\07\\2024' },
+            { week: 3, name: 'تصميم المسوح الإحصائية', duration: '4 أيام', date: 'من 15\\07\\2024 الى 18\\07\\2024' },
+            { week: 3, name: 'مهارات العمل الجماعي و التعاون', duration: '3 أيام', date: 'من 16\\07\\2024 الى 18\\07\\2024' },
+            { week: 3, name: 'برنامج التوجيه الوظيفي لنظام المقابلات الوظيفية ( المجموعة 2 )', duration: 'يوم واحد', date: '18\\07\\2024' },
+            { week: 4, name: 'بناء مشروع تجاري', duration: '4 أيام', date: 'من 22\\07\\2024 الى 25\\07\\2024' },
+            { week: 4, name: 'مؤشرات جودة الحياة', duration: '3 أيام', date: 'من 23\\07\\2024 الى 25\\07\\2024' },
+            { week: 4, name: 'التغلب على رهاب المستقبل المجهول', duration: '3 أيام', date: 'من 23\\07\\2024 الى 25\\07\\2024' },
+            { week: 4, name: 'هندسة الابداع واستراتيجيات الأعمال الإبتكارية', duration: '3 أيام', date: 'من 23\\07\\2024 الى 25\\07\\2024' },
+            { week: 4, name: 'تحديد وتحقيق الأهداف', duration: '3 أيام', date: 'من 23\\07\\2024 الى 25\\07\\2024' }
+        ],
+        master: [
+            { week: 1, name: 'البرنامج الدولي في الأمن الرقمي (السيبراني) Cyber Security Certification', duration: '6 أيام', date: 'من 01\\07\\2024 الى 09\\07\\2024' },
+            { week: 1, name: 'مهارات الممارسة المهنية للأخصائي الاجتماعي', duration: '4 أيام', date: 'من 01\\07\\2024 الى 04\\07\\2024' },
+            { week: 1, name: 'التميز والابتكار في خدمة وإسعاد المتعاملين', duration: '4 أيام', date: 'من 01\\07\\2024 الى 04\\07\\2024' },
+            { week: 1, name: 'استراتيجيات التخطيط والتنظيم', duration: '3 أيام', date: 'من 02\\07\\2024 الى 04\\07\\2024' },
+            { week: 1, name: 'برنامج التوجيه الوظيفي لنظام المقابلات الوظيفية ( المجموعة 1 )', duration: 'يوم واحد', date: '04\\07\\2024' },
+            { week: 2, name: 'إدارة الذات والتغيير', duration: '3 أيام', date: 'من 09\\07\\2024 الى 11\\07\\2024' },
+            { week: 2, name: 'مهارات التخطيط الإبداعي', duration: '3 أيام', date: 'من 09\\07\\2024 الى 11\\07\\2024' },
+            { week: 2, name: 'التفكير الإيجابي', duration: '3 أيام', date: 'من 09\\07\\2024 الى 11\\07\\2024' },
+            { week: 2, name: 'مهارات التعامل مع الشخصيات المتنوعة والصعبة', duration: '3 أيام', date: 'من 09\\07\\2024 الى 11\\07\\2024' },
+            { week: 2, name: 'كتابة السيرة الذاتية بإحترافية', duration: 'يوم واحد', date: '11\\07\\2024' },
+            { week: 3, name: 'مهارات خبير لغة الاشارة (المستوى الأول) (حضوري)', duration: '4 أيام', date: 'من 15\\07\\2024 الى 18\\07\\2024' },
+            { week: 3, name: 'الأرشفة الذكية وإدارة الوثائق والملفات', duration: '4 أيام', date: 'من 15\\07\\2024 الى 18\\07\\2024' },
+            { week: 3, name: 'تصميم المسوح الإحصائية', duration: '4 أيام', date: 'من 15\\07\\2024 الى 18\\07\\2024' },
+            { week: 3, name: 'مهارات العمل الجماعي و التعاون', duration: '3 أيام', date: 'من 16\\07\\2024 الى 18\\07\\2024' },
+            { week: 3, name: 'برنامج التوجيه الوظيفي لنظام المقابلات الوظيفية ( المجموعة 2 )', duration: 'يوم واحد', date: '18\\07\\2024' },
+            { week: 4, name: 'بناء مشروع تجاري', duration: '4 أيام', date: 'من 22\\07\\2024 الى 25\\07\\2024' },
+            { week: 4, name: 'مؤشرات جودة الحياة', duration: '3 أيام', date: 'من 23\\07\\2024 الى 25\\07\\2024' },
+            { week: 4, name: 'التغلب على رهاب المستقبل المجهول', duration: '3 أيام', date: 'من 23\\07\\2024 الى 25\\07\\2024' },
+            { week: 4, name: 'هندسة الابداع واستراتيجيات الأعمال الإبتكارية', duration: '3 أيام', date: 'من 23\\07\\2024 الى 25\\07\\2024' },
+            { week: 4, name: 'تحديد وتحقيق الأهداف', duration: '3 أيام', date: 'من 23\\07\\2024 الى 25\\07\\2024' }
+        ],
+        diploma: [
+            { week: 1, name: 'البرنامج الدولي في الأمن الرقمي (السيبراني) Cyber Security Certification', duration: '6 أيام', date: 'من 01\\07\\2024 الى 09\\07\\2024' },
+            { week: 1, name: 'مهارات الممارسة المهنية للأخصائي الاجتماعي', duration: '4 أيام', date: 'من 01\\07\\2024 الى 04\\07\\2024' },
+            { week: 1, name: 'التميز والابتكار في خدمة وإسعاد المتعاملين', duration: '4 أيام', date: 'من 01\\07\\2024 الى 04\\07\\2024' },
+            { week: 1, name: 'استراتيجيات التخطيط والتنظيم', duration: '3 أيام', date: 'من 02\\07\\2024 الى 04\\07\\2024' },
+            { week: 1, name: 'برنامج التوجيه الوظيفي لنظام المقابلات الوظيفية ( المجموعة 1 )', duration: 'يوم واحد', date: '04\\07\\2024' },
+            { week: 2, name: 'إدارة الذات والتغيير', duration: '3 أيام', date: 'من 09\\07\\2024 الى 11\\07\\2024' },
+            { week: 2, name: 'مهارات التخطيط الإبداعي', duration: '3 أيام', date: 'من 09\\07\\2024 الى 11\\07\\2024' },
+            { week: 2, name: 'التفكير الإيجابي', duration: '3 أيام', date: 'من 09\\07\\2024 الى 11\\07\\2024' },
+            { week: 2, name: 'مهارات التعامل مع الشخصيات المتنوعة والصعبة', duration: '3 أيام', date: 'من 09\\07\\2024 الى 11\\07\\2024' },
+            { week: 2, name: 'كتابة السيرة الذاتية بإحترافية', duration: 'يوم واحد', date: '11\\07\\2024' },
+            { week: 3, name: 'مهارات خبير لغة الاشارة (المستوى الأول) (حضوري)', duration: '4 أيام', date: 'من 15\\07\\2024 الى 18\\07\\2024' },
+            { week: 3, name: 'الأرشفة الذكية وإدارة الوثائق والملفات', duration: '4 أيام', date: 'من 15\\07\\2024 الى 18\\07\\2024' },
+            { week: 3, name: 'تصميم المسوح الإحصائية', duration: '4 أيام', date: 'من 15\\07\\2024 الى 18\\07\\2024' },
+            { week: 3, name: 'مهارات العمل الجماعي و التعاون', duration: '3 أيام', date: 'من 16\\07\\2024 الى 18\\07\\2024' },
+            { week: 3, name: 'برنامج التوجيه الوظيفي لنظام المقابلات الوظيفية ( المجموعة 2 )', duration: 'يوم واحد', date: '18\\07\\2024' },
+            { week: 4, name: 'بناء مشروع تجاري', duration: '4 أيام', date: 'من 22\\07\\2024 الى 25\\07\\2024' },
+            { week: 4, name: 'مؤشرات جودة الحياة', duration: '3 أيام', date: 'من 23\\07\\2024 الى 25\\07\\2024' },
+            { week: 4, name: 'التغلب على رهاب المستقبل المجهول', duration: '3 أيام', date: 'من 23\\07\\2024 الى 25\\07\\2024' },
+            { week: 4, name: 'هندسة الابداع واستراتيجيات الأعمال الإبتكارية', duration: '3 أيام', date: 'من 23\\07\\2024 الى 25\\07\\2024' },
+            { week: 4, name: 'تحديد وتحقيق الأهداف', duration: '3 أيام', date: 'من 23\\07\\2024 الى 25\\07\\2024' }
+        ],
+        advancedDiploma: [
+            { week: 1, name: 'البرنامج الدولي في الأمن الرقمي (السيبراني) Cyber Security Certification', duration: '6 أيام', date: 'من 01\\07\\2024 الى 09\\07\\2024' },
+            { week: 1, name: 'مهارات الممارسة المهنية للأخصائي الاجتماعي', duration: '4 أيام', date: 'من 01\\07\\2024 الى 04\\07\\2024' },
+            { week: 1, name: 'التميز والابتكار في خدمة وإسعاد المتعاملين', duration: '4 أيام', date: 'من 01\\07\\2024 الى 04\\07\\2024' },
+            { week: 1, name: 'استراتيجيات التخطيط والتنظيم', duration: '3 أيام', date: 'من 02\\07\\2024 الى 04\\07\\2024' },
+            { week: 1, name: 'برنامج التوجيه الوظيفي لنظام المقابلات الوظيفية ( المجموعة 1 )', duration: 'يوم واحد', date: '04\\07\\2024' },
+            { week: 2, name: 'إدارة الذات والتغيير', duration: '3 أيام', date: 'من 09\\07\\2024 الى 11\\07\\2024' },
+            { week: 2, name: 'مهارات التخطيط الإبداعي', duration: '3 أيام', date: 'من 09\\07\\2024 الى 11\\07\\2024' },
+            { week: 2, name: 'التفكير الإيجابي', duration: '3 أيام', date: 'من 09\\07\\2024 الى 11\\07\\2024' },
+            { week: 2, name: 'مهارات التعامل مع الشخصيات المتنوعة والصعبة', duration: '3 أيام', date: 'من 09\\07\\2024 الى 11\\07\\2024' },
+            { week: 2, name: 'كتابة السيرة الذاتية بإحترافية', duration: 'يوم واحد', date: '11\\07\\2024' },
+            { week: 3, name: 'مهارات خبير لغة الاشارة (المستوى الأول) (حضوري)', duration: '4 أيام', date: 'من 15\\07\\2024 الى 18\\07\\2024' },
+            { week: 3, name: 'الأرشفة الذكية وإدارة الوثائق والملفات', duration: '4 أيام', date: 'من 15\\07\\2024 الى 18\\07\\2024' },
+            { week: 3, name: 'تصميم المسوح الإحصائية', duration: '4 أيام', date: 'من 15\\07\\2024 الى 18\\07\\2024' },
+            { week: 3, name: 'مهارات العمل الجماعي و التعاون', duration: '3 أيام', date: 'من 16\\07\\2024 الى 18\\07\\2024' },
+            { week: 3, name: 'برنامج التوجيه الوظيفي لنظام المقابلات الوظيفية ( المجموعة 2 )', duration: 'يوم واحد', date: '18\\07\\2024' },
+            { week: 4, name: 'بناء مشروع تجاري', duration: '4 أيام', date: 'من 22\\07\\2024 الى 25\\07\\2024' },
+            { week: 4, name: 'مؤشرات جودة الحياة', duration: '3 أيام', date: 'من 23\\07\\2024 الى 25\\07\\2024' },
+            { week: 4, name: 'التغلب على رهاب المستقبل المجهول', duration: '3 أيام', date: 'من 23\\07\\2024 الى 25\\07\\2024' },
+            { week: 4, name: 'هندسة الابداع واستراتيجيات الأعمال الإبتكارية', duration: '3 أيام', date: 'من 23\\07\\2024 الى 25\\07\\2024' },
+            { week: 4, name: 'تحديد وتحقيق الأهداف', duration: '3 أيام', date: 'من 23\\07\\2024 الى 25\\07\\2024' }
+        ]
+    },
+    others: {
+        belowHighSchool: [
+            { week: 1, name: 'البرنامج الدولي في الأمن الرقمي (السيبراني) Cyber Security Certification', duration: '6 أيام', date: 'من 01\\07\\2024 الى 09\\07\\2024' },
+            { week: 1, name: 'مهارات الممارسة المهنية للأخصائي الاجتماعي', duration: '4 أيام', date: 'من 01\\07\\2024 الى 04\\07\\2024' },
+            { week: 1, name: 'التميز والابتكار في خدمة وإسعاد المتعاملين', duration: '4 أيام', date: 'من 01\\07\\2024 الى 04\\07\\2024' },
+            { week: 1, name: 'استراتيجيات التخطيط والتنظيم', duration: '3 أيام', date: 'من 02\\07\\2024 الى 04\\07\\2024' },
+            { week: 1, name: 'برنامج التوجيه الوظيفي لنظام المقابلات الوظيفية ( المجموعة 1 )', duration: 'يوم واحد', date: '04\\07\\2024' },
+            { week: 2, name: 'إدارة الذات والتغيير', duration: '3 أيام', date: 'من 09\\07\\2024 الى 11\\07\\2024' },
+            { week: 2, name: 'مهارات التخطيط الإبداعي', duration: '3 أيام', date: 'من 09\\07\\2024 الى 11\\07\\2024' },
+            { week: 2, name: 'التفكير الإيجابي', duration: '3 أيام', date: 'من 09\\07\\2024 الى 11\\07\\2024' },
+            { week: 2, name: 'مهارات التعامل مع الشخصيات المتنوعة والصعبة', duration: '3 أيام', date: 'من 09\\07\\2024 الى 11\\07\\2024' },
+            { week: 2, name: 'كتابة السيرة الذاتية بإحترافية', duration: 'يوم واحد', date: '11\\07\\2024' },
+            { week: 3, name: 'مهارات خبير لغة الاشارة (المستوى الأول) (حضوري)', duration: '4 أيام', date: 'من 15\\07\\2024 الى 18\\07\\2024' },
+            { week: 3, name: 'الأرشفة الذكية وإدارة الوثائق والملفات', duration: '4 أيام', date: 'من 15\\07\\2024 الى 18\\07\\2024' },
+            { week: 3, name: 'تصميم المسوح الإحصائية', duration: '4 أيام', date: 'من 15\\07\\2024 الى 18\\07\\2024' },
+            { week: 3, name: 'مهارات العمل الجماعي و التعاون', duration: '3 أيام', date: 'من 16\\07\\2024 الى 18\\07\\2024' },
+            { week: 3, name: 'برنامج التوجيه الوظيفي لنظام المقابلات الوظيفية ( المجموعة 2 )', duration: 'يوم واحد', date: '18\\07\\2024' },
+            { week: 4, name: 'بناء مشروع تجاري', duration: '4 أيام', date: 'من 22\\07\\2024 الى 25\\07\\2024' },
+            { week: 4, name: 'مؤشرات جودة الحياة', duration: '3 أيام', date: 'من 23\\07\\2024 الى 25\\07\\2024' },
+            { week: 4, name: 'التغلب على رهاب المستقبل المجهول', duration: '3 أيام', date: 'من 23\\07\\2024 الى 25\\07\\2024' },
+            { week: 4, name: 'هندسة الابداع واستراتيجيات الأعمال الإبتكارية', duration: '3 أيام', date: 'من 23\\07\\2024 الى 25\\07\\2024' },
+            { week: 4, name: 'تحديد وتحقيق الأهداف', duration: '3 أيام', date: 'من 23\\07\\2024 الى 25\\07\\2024' }
+        ],
+        achievementCertificate: [
+            { week: 1, name: 'البرنامج الدولي في الأمن الرقمي (السيبراني) Cyber Security Certification', duration: '6 أيام', date: 'من 01\\07\\2024 الى 09\\07\\2024' },
+            { week: 1, name: 'مهارات الممارسة المهنية للأخصائي الاجتماعي', duration: '4 أيام', date: 'من 01\\07\\2024 الى 04\\07\\2024' },
+            { week: 1, name: 'التميز والابتكار في خدمة وإسعاد المتعاملين', duration: '4 أيام', date: 'من 01\\07\\2024 الى 04\\07\\2024' },
+            { week: 1, name: 'استراتيجيات التخطيط والتنظيم', duration: '3 أيام', date: 'من 02\\07\\2024 الى 04\\07\\2024' },
+            { week: 1, name: 'برنامج التوجيه الوظيفي لنظام المقابلات الوظيفية ( المجموعة 1 )', duration: 'يوم واحد', date: '04\\07\\2024' },
+            { week: 2, name: 'إدارة الذات والتغيير', duration: '3 أيام', date: 'من 09\\07\\2024 الى 11\\07\\2024' },
+            { week: 2, name: 'مهارات التخطيط الإبداعي', duration: '3 أيام', date: 'من 09\\07\\2024 الى 11\\07\\2024' },
+            { week: 2, name: 'التفكير الإيجابي', duration: '3 أيام', date: 'من 09\\07\\2024 الى 11\\07\\2024' },
+            { week: 2, name: 'مهارات التعامل مع الشخصيات المتنوعة والصعبة', duration: '3 أيام', date: 'من 09\\07\\2024 الى 11\\07\\2024' },
+            { week: 2, name: 'كتابة السيرة الذاتية بإحترافية', duration: 'يوم واحد', date: '11\\07\\2024' },
+            { week: 3, name: 'مهارات خبير لغة الاشارة (المستوى الأول) (حضوري)', duration: '4 أيام', date: 'من 15\\07\\2024 الى 18\\07\\2024' },
+            { week: 3, name: 'الأرشفة الذكية وإدارة الوثائق والملفات', duration: '4 أيام', date: 'من 15\\07\\2024 الى 18\\07\\2024' },
+            { week: 3, name: 'تصميم المسوح الإحصائية', duration: '4 أيام', date: 'من 15\\07\\2024 الى 18\\07\\2024' },
+            { week: 3, name: 'مهارات العمل الجماعي و التعاون', duration: '3 أيام', date: 'من 16\\07\\2024 الى 18\\07\\2024' },
+            { week: 3, name: 'برنامج التوجيه الوظيفي لنظام المقابلات الوظيفية ( المجموعة 2 )', duration: 'يوم واحد', date: '18\\07\\2024' },
+            { week: 4, name: 'بناء مشروع تجاري', duration: '4 أيام', date: 'من 22\\07\\2024 الى 25\\07\\2024' },
+            { week: 4, name: 'مؤشرات جودة الحياة', duration: '3 أيام', date: 'من 23\\07\\2024 الى 25\\07\\2024' },
+            { week: 4, name: 'التغلب على رهاب المستقبل المجهول', duration: '3 أيام', date: 'من 23\\07\\2024 الى 25\\07\\2024' },
+            { week: 4, name: 'هندسة الابداع واستراتيجيات الأعمال الإبتكارية', duration: '3 أيام', date: 'من 23\\07\\2024 الى 25\\07\\2024' },
+            { week: 4, name: 'تحديد وتحقيق الأهداف', duration: '3 أيام', date: 'من 23\\07\\2024 الى 25\\07\\2024' }
+        ]
+    }
+};
+
+        let selectedPrograms = JSON.parse(localStorage.getItem('selectedPrograms')) || [];
+        let selectedProgramDetails = {};
+
+        function showPrograms(category) {
+            const programsSection = document.getElementById('programsSection');
+            const programsContainer = document.getElementById('programs');
+            programsContainer.innerHTML = '';
+
+            let selectedCategoryPrograms;
+            if (category === 'university' || category === 'others') {
+                const qualification = document.getElementById(category === 'university' ? 'universityQualification' : 'otherQualification').value;
+                if (!qualification) {
+                    alert('يرجى اختيار المؤهل العلمي');
+                    return;
+                }
+                selectedCategoryPrograms = programs[category][qualification];
+                selectedProgramDetails.qualification = qualification;
+            } else {
+                selectedCategoryPrograms = programs[category];
+                selectedProgramDetails.qualification = category;
+            }
+
+            if (selectedCategoryPrograms) {
+                selectedCategoryPrograms.forEach(program => {
+                    const programDiv = document.createElement('div');
+                    programDiv.className = 'p-4 bg-white rounded shadow transition duration-300 transform hover:scale-105';
+                    programDiv.innerHTML = `
+                        <h3 class="text-lg font-semibold text-primary">${program.name}</h3>
+                        <button onclick="showRegistrationForm('${category}', ${program.week}, '${program.name}')" class="bg-secondary text-primary px-4 py-2 mt-2 rounded transition duration-300 hover:bg-primary hover:text-white">تسجيل</button>
+                    `;
+                    programsContainer.appendChild(programDiv);
+                });
+                programsSection.classList.remove('hidden');
+            }
+        }
+
+        function showRegistrationForm(category, week, name) {
+            const registrationForm = document.getElementById('registrationForm');
+            document.getElementById('qualificationInfo').innerText = selectedProgramDetails.qualification;
+            document.getElementById('programInfo').innerText = `${name} (الأسبوع ${week})`;
+            
+            selectedProgramDetails.category = category;
+            selectedProgramDetails.week = week;
+            selectedProgramDetails.name = name;
+
+            registrationForm.classList.remove('hidden');
+        }
+
+        function closeRegistrationForm() {
+            const registrationForm = document.getElementById('registrationForm');
+            registrationForm.classList.add('hidden');
+        }
+
+        function submitRegistration() {
+            const userName = document.getElementById('userName').value;
+            const userPhone = document.getElementById('userPhone').value;
+            const userEmail = document.getElementById('userEmail').value;
+            const confirmRegistration = document.getElementById('confirmRegistration').checked;
+
+            if (!userName || !userPhone || !userEmail || !confirmRegistration) {
+                alert('يرجى تعبئة جميع الحقول وتأكيد التسجيل.');
+                return;
+            }
+
+            if (!/9715\d{8,}/.test(userPhone)) {
+                alert('رقم الهاتف يجب أن يبدأ بالرقم الدولي 9715 ويليها 8 ارقام المتبقية من رقم هاتفك.');
+                return;
+            }
+
+            if (selectedPrograms.length >= 4) {
+                alert('يمكنك التسجيل في أربع برامج فقط.');
+                return;
+            }
+
+            if (selectedPrograms.some(p => p.week === selectedProgramDetails.week)) {
+                alert('تذكر! لا يمكن تسجيل برامج في نفس الأسبوع لأسباب التعارض في الفترة والوقت.');
+                return;
+            }
+
+            selectedPrograms.push({...selectedProgramDetails, userName, userPhone, userEmail});
+            localStorage.setItem('selectedPrograms', JSON.stringify(selectedPrograms));
+
+            alert('تم التسجيل في البرنامج بنجاح.');
+            closeRegistrationForm();
+        }
+
+        // Show intro section for 2 seconds, then show main content
+        window.onload = function() {
+            setTimeout(() => {
+                document.getElementById('introSection').classList.add('hidden');
+                document.getElementById('mainContent').classList.remove('hidden');
+            }, 2000);
+        };
+    </script>
+</body>
+</html>
